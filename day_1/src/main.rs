@@ -37,7 +37,7 @@ fn original_solution() {
 }
 
 
-fn improved_solution(){
+fn improved_solution_part1(){
     let answer = include_str!("../input.txt")
         .split("\n\n")
         .map(|group| group
@@ -50,7 +50,23 @@ fn improved_solution(){
     println!("(Part 1) Improved solution answer: {}", answer.unwrap());
 }
 
+fn improved_solution_part2(){
+    let mut answer = include_str!("../input.txt")
+        .split("\n\n")
+        .map(|group| group
+             .lines()
+             .flat_map(|line| line.parse::<usize>())
+             .sum::<usize>()
+        )
+        .collect::<Vec<usize>>();
+
+    answer.sort_by(|a, b| b.cmp(a));
+
+    println!("(Part 2) Improved solution answer: {}", answer.iter().take(3).sum::<usize>());
+}
+
 fn main() {
     original_solution();
-    improved_solution();
+    improved_solution_part1();
+    improved_solution_part2();
 }
