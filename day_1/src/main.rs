@@ -1,11 +1,8 @@
 use std::fs;
 
-fn main() {
-    // Potential alternate answer
-    //let answer = include_str!("../input.txt").split("/n").map(|x| x.lines().map(|x| x.parse::<u32>()).sum::<u32>()).max();
-    //println!("{:?}", Some(answer));
 
-    let file_path = "C:\\Users\\caleb\\Documents\\Personal Documents\\Advent of Code 2022\\day_1\\input.txt";
+fn original_solution() {
+    let file_path = "/home/firstcitizen/aoc-2022/day_1/input.txt";
 
     let contents = fs::read_to_string(file_path).expect("Should be able to read the file");
 
@@ -36,5 +33,24 @@ fn main() {
         }
     }
     let top_3_calories_total: i32 = high_calories_1 + high_calories_2 + high_calories_3;
-    println!{"{}", top_3_calories_total};
+    println!{"(Part 2) Original solution answer:{}", top_3_calories_total};
+}
+
+
+fn improved_solution(){
+    let answer = include_str!("../input.txt")
+        .split("\n\n")
+        .map(|group| group
+             .lines()
+             .flat_map(|line| line.parse::<usize>())
+             .sum::<usize>()
+        )
+        .max();
+
+    println!("(Part 1) Improved solution answer: {}", answer.unwrap());
+}
+
+fn main() {
+    original_solution();
+    improved_solution();
 }
