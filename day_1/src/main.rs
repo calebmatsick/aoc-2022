@@ -1,7 +1,32 @@
+// File being read multiple times to show difference in improved solutions specifically for day 1
+
 use std::fs;
 
 
-fn original_solution() {
+fn original_solution_part1() {
+    let file_path = "/home/firstcitizen/aoc-2022/day_1/input.txt";
+
+    let contents = fs::read_to_string(file_path).expect("Should be able to read the file");
+
+    let mut high_calories: i32 = 0;
+    let mut running_total: i32 = 0;
+
+    for line in contents.lines() {
+        if !line.is_empty() {
+            let line_num: i32 = line.parse().unwrap();
+            running_total = running_total + line_num;
+        }
+        if line.is_empty() {
+            if running_total > high_calories {
+                high_calories = running_total;
+            }
+            running_total = 0;
+        }
+    }
+    println!{"(Part 1) Original solution answer: {}", high_calories};
+}
+
+fn original_solution_part2() {
     let file_path = "/home/firstcitizen/aoc-2022/day_1/input.txt";
 
     let contents = fs::read_to_string(file_path).expect("Should be able to read the file");
@@ -33,7 +58,7 @@ fn original_solution() {
         }
     }
     let top_3_calories_total: i32 = high_calories_1 + high_calories_2 + high_calories_3;
-    println!{"(Part 2) Original solution answer:{}", top_3_calories_total};
+    println!{"(Part 2) Original solution answer: {}", top_3_calories_total};
 }
 
 
@@ -66,7 +91,8 @@ fn improved_solution_part2(){
 }
 
 fn main() {
-    original_solution();
+    original_solution_part1();
+    original_solution_part2();
     improved_solution_part1();
     improved_solution_part2();
 }
