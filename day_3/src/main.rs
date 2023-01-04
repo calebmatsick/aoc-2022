@@ -73,6 +73,10 @@ fn original_solution_part2(input: &str) {
     println!("{:?}", duplicate.iter().sum::<i32>());
 }
 
+fn improved_solution_part1(input: str) {
+
+}
+
 fn main() {
     let input = include_str!("../input.txt");
     original_solution_part1(&input);

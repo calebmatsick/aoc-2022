@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::{collections::HashMap, io::Stderr};
 
 fn original_solution_part1(input: &str) {
     let rubric = HashMap::from([
@@ -80,6 +80,44 @@ fn improved_solution_part2(input: &str) {
     let score: usize = input.lines().map(|line| rubric[line]).sum();
 
     println!("{}", score);
+}
+
+#[derive(Debug, Clone, Copy)]
+enum Move {
+    Rock,
+    Paper,
+    Scissors,
+}
+
+#[derive(Debug, Clone, Copy)]
+struct Round {
+    their: Move,
+    your: Move,
+}
+
+impl TryFrom<char> for Move {
+    fn try_from(c: char) -> Result<Self, Stderr> {
+        match c {
+            'A' | 'X' => Ok(Move::Rock),
+            'B' | 'Y' => Ok(Move::Paper),
+            'C' | 'Z' => Ok(Move::Scissors),
+            _ => Err(),
+        }
+    }
+}
+
+impl FromStr for Round {
+    fn from_str(s: &str) -> Result<Self, Stderr> {
+        let mut chars = s.chars();
+                let (Some(theirs), Some(' '), Some(ours), None) = (chars.next(), chars.next(), chars.next(), chars.next()) else {
+            return Err();
+        };
+
+        Ok(Self {
+            their: their.try_into()?,
+            your: your.try_into()?,
+        })
+    }
 }
 
 fn main() {
